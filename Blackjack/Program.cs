@@ -108,7 +108,21 @@ namespace Blackjack
 			}
 		}
 
-
+		static int DealCard(Card currCard, int sum, string receiver, int count, bool hideCard)
+		{
+			
+			if (hideCard)
+			{
+				Console.WriteLine($"{receiver} card #{count}: Face Down    - total showing {sum}");
+				sum += currCard.GetCardValue();
+			}
+			else
+			{
+				sum += currCard.GetCardValue();
+				Console.WriteLine($"{receiver} card #{count}: {currCard}    - current total {sum}");
+			}
+			return sum;
+		}
 		static void Main(string[] args)
 		{
 			// Create the deck and load in the cards
@@ -123,20 +137,36 @@ namespace Blackjack
 				}
 			}
 
-			//sort the deck. NOTICE that the variable 'deck' is unchanged, but 'randomDeck' is the actual sorted deck.
-			randomDeck = deck.OrderBy(x => Guid.NewGuid()).ToList();
-
-			var dealerSum = 0;
-			var dealerCount = 0;
-			var dealerShowing = 0;
-			var playerSum = 0;
-			var playerCount = 0;
+			int dealerSum;
+			int dealerCount;
+			int dealerShowing;
+			int playerSum;
+			int playerCount;
+			int cardIndex;
 			var wantToPlay = true;
+			var dealerWon = false;
+			var playerWon = false;
 
 			while (wantToPlay)
 			{
+				dealerSum = 0;
+				dealerCount = 0;
+				dealerShowing = 0;
+				playerSum = 0;
+				playerCount = 0;
+				cardIndex = 0;
+
 				//sort (shuffle) the deck. NOTICE that the variable 'deck' is unchanged, but 'randomDeck' is the actual sorted deck.
 				randomDeck = deck.OrderBy(x => Guid.NewGuid()).ToList();
+
+				// Initial Deal - Deal 2 cards each to player and dealer
+				playerSum = DealCard(randomDeck[cardIndex++], playerSum, "Player\'s", ++playerCount, false);
+				dealerSum = DealCard(randomDeck[cardIndex++], dealerSum, "Dealer\'s", ++dealerCount, false);
+				playerSum = DealCard(randomDeck[cardIndex++], playerSum, "Player\'s", ++playerCount, false);
+				dealerSum = DealCard(randomDeck[cardIndex++], dealerSum, "Dealer\'s", ++dealerCount, true);
+
+				Console.ReadLine();
+
 			}
 			/*
 			foreach (Card currcard in randomDeck)
