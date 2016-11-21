@@ -145,8 +145,6 @@ namespace Blackjack
 			int cardIndex;
 			int holeCard;
 			var wantToPlay = true;
-			var dealerWon = false;
-			var playerWon = false;
 			string hitMe;
 			bool validAnswer;
 
@@ -172,17 +170,15 @@ namespace Blackjack
 				holeCard = cardIndex;
 				dealerSum = DealCard(randomDeck[cardIndex++], dealerSum, "Dealer", ++dealerCount, true);
 
-				if (dealerSum == 21)
+				if (playerSum == 21)
 				{
-					dealerWon = true;
-					Console.WriteLine("\nDealer has Blackjack. You lose!  Sorry.\n");
+					Console.WriteLine("\nYou have Blackjack. You win!  Congratulations.\n");
 				}
 				else
 				{
-					if (playerSum == 21)
+					if (dealerSum == 21)
 					{
-						playerWon = true;
-						Console.WriteLine("\nYou have Blackjack. You win!  Congratulations.\n");
+						Console.WriteLine("\nDealer has Blackjack. You lose!  Sorry.\n");
 					}
 					else
 					{
@@ -218,9 +214,10 @@ namespace Blackjack
 						if (playerSum <= 21)
 						{
 							// *** DEALERS TURN ***
-							Console.WriteLine($"Dealers hole card is {randomDeck[holeCard]}.  Current total is {dealerSum}.  ");
-							while ((dealerSum < 16) || (dealerSum < playerSum))
-							{
+							Console.WriteLine($"\nDealers hole card is {randomDeck[holeCard]}.  Current total is {dealerSum}.  ");
+							while ((dealerSum < 16))
+							//while ((dealerSum < 16) || (dealerSum < playerSum))      alternate logic
+								{
 								Console.WriteLine("Dealer Hits");
 								dealerSum = DealCard(randomDeck[cardIndex++], dealerSum, "Dealer", ++dealerCount, false);
 								// *** END DEALERS TURN ***
@@ -229,51 +226,29 @@ namespace Blackjack
 						// *** DETERMINE WHO WON ***
 						if (playerSum > 21)
 						{
-							Console.WriteLine("You busted.  You lose!\n");
+							Console.WriteLine("\nYou busted.  You lose!\n");
 						}
 						else if (dealerSum > 21)
-							{
-								Console.WriteLine("Dealer busted.  You win!\n");
-							}
-							else if (playerSum > dealerSum)
-								{
-									Console.WriteLine("Your hand is higher. You Win!\n");
-								}
-								else if (playerSum < dealerSum)
-									{
-										Console.WriteLine("Dealer hand is higher. You Lose!\n");
-									}
-									else
-									{
-										Console.WriteLine("You tied so this is a push. No one wins.\n");
-									}
+						{
+							Console.WriteLine("\nDealer busted.  You win!\n");
+						}
+						else if (playerSum > dealerSum)
+						{
+							Console.WriteLine("\nYour hand is higher. You Win!\n");
+						}
+						else if (playerSum < dealerSum)
+						{
+							Console.WriteLine("\nDealer hand is higher. You Lose!\n");
+						}
+						else
+						{
+							Console.WriteLine("\nYou tied so this is a push. No one wins.\n");
+						}
 					}
 				}
 				Console.ReadLine();
-
 			}
-			/*
-			foreach (Card currcard in randomDeck)
-			{
-				Console.WriteLine(currcard);
-				Console.WriteLine(currcard.Rank);
-			}
-			Console.WriteLine("and the first card again ...");
-			Card myCard;
-			int cardnum = 0;
-			myCard = randomDeck[cardnum];
-			cardnum++;
 
-			Console.WriteLine($"First Whole card is {myCard}, just rank is {myCard.Rank}, just suit is {myCard.Suit}");
-			var myValue = myCard.GetCardValue();
-			Console.WriteLine($"And the card value is ... {myValue}");
-			myCard = randomDeck[cardnum];
-
-			Console.WriteLine($"Second Whole card is {myCard}, just rank is {myCard.Rank}, just suit is {myCard.Suit}");
-			myValue = myCard.GetCardValue();
-			Console.WriteLine($"And the card value is ... {myValue}");
-			Console.ReadLine();
-			*/
 
 		}
 	}

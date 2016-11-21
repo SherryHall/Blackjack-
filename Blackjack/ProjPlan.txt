@@ -1,0 +1,23 @@
+Planning and research				3 hours
+
+Create and shuffle deck				15 minutes. Code provided, just need to understand and learn to use.
+
+Initial deal, 2 cards each			2 hours
+
+if you get 21 on the deal (blackjack!) 		15 minutes
+then you automatically win
+
+Player hits until stops or busts		2 hours
+
+Dealer hits if they hold less than 16, 		1.5 hours
+otherwise Dealer stays.
+You must beat the dealer.
+
+You can see only the first card dealt to 	30 minutes
+the dealer. All others are hidden.
+
+Determine winner				30 minutes
+
+test						1 hour
+
+submit						15 minutes
